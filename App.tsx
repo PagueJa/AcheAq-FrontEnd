@@ -1,16 +1,11 @@
+// App.tsx
+import 'react-native-gesture-handler';
 import React from 'react';
-import {Text} from 'react-native';
+import AppNavigator from './src/navigator/appNavigator'; // Caminho para o seu AppNavigator
 
-const getFullName = (
-  firstName: string,
-  secondName: string,
-  thirdName: string,
-) => {
-  return firstName + ' ' + secondName + ' ' + thirdName;
+const App = () => {
+  return <AppNavigator />;
 };
 
-const Cat = () => {
-  return <Text>Hello, I am {getFullName('Rum', 'Tum', 'Tugger')}!</Text>;
-};
+export default App;
 
-export default Cat;
