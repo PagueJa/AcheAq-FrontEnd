@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { View, Image, StyleSheet, Text, TextInput, TouchableOpacity  } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function CadastroScreen() {
     const [email, setEmail] = useState(''); // Inicializa o estado do email como uma string vazia
     const [senha, setSenha] = useState(''); // Inicializa o estado da senha como uma string vazia
+    const navigation = useNavigation();
       
     const handleLogin = () => {
         console.log('Email:', email);
@@ -28,8 +30,8 @@ export default function CadastroScreen() {
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button_NovaConta} onPress={handleLogin}>
-        <Text>Criar Uma nova conta</Text>
+        <TouchableOpacity style={styles.button_NovaConta} onPress={() => navigation.navigate('Login')}>
+        <Text>Já tenho uma conta</Text>
         </TouchableOpacity>
         <Text style={styles.continue}>Ou continue com</Text>
     </View>

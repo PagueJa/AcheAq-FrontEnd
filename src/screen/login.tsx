@@ -20,17 +20,17 @@ export default function LoginScreen() {
         />
         <Text style={styles.texto_login}>Login</Text>
         <View style= {styles.inputContainer}>
-        <TextInput style={styles.input} placeholder='Email' placeholderTextColor="#888" value={email} onChangeText={setEmail}></TextInput>
-        <TextInput style={styles.input} placeholder='Senha' placeholderTextColor="#888" secureTextEntry value={senha} onChangeText={setSenha}></TextInput>
+          <TextInput style={styles.input} placeholder='Email' placeholderTextColor="#888" value={email} onChangeText={setEmail}></TextInput>
+          <TextInput style={styles.input} placeholder='Senha' placeholderTextColor="#888" secureTextEntry value={senha} onChangeText={setSenha}></TextInput>
         </View>
         <TouchableOpacity style={styles.button_esqueceu_senha} onPress={handleLogin}>
-        <Text>Esqueceu a senha?</Text>
+          <Text>Esqueceu a senha?</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Entrar</Text>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button_NovaConta} onPress={() => navigation.navigate('Cadastro')}>
-        <Text>Criar Uma nova conta</Text>
+          <Text>Criar Uma nova conta</Text>
         </TouchableOpacity>
         <Text style={styles.continue}>Ou continue com</Text>
     </View>
