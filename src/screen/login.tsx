@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { View, Image, StyleSheet, Text, TextInput, TouchableOpacity  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../navigator/types';
+
+type NavigationProps = StackNavigationProp<RootStackParamList, 'Login'>;
 
 export default function LoginScreen() {
     const [email, setEmail] = useState(''); // Inicializa o estado do email como uma string vazia
     const [senha, setSenha] = useState(''); // Inicializa o estado da senha como uma string vazia
-    const navigation = useNavigation();
+    const navigation = useNavigation<NavigationProps>();
 
     const handleLogin = () => {
         console.log('Email:', email);

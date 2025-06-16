@@ -3,14 +3,20 @@ import { View, StyleSheet, Text, ImageBackground, TouchableOpacity, Image, FlatL
 import { TextInput } from 'react-native-paper'; 
 import { MaterialIcons } from '@expo/vector-icons';
 import MyFooter from '../components/footer';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../navigator/types';
+
+
+type NavigationProps = StackNavigationProp<RootStackParamList, 'Home'>;
 
 const SearchHistoryItem = ({ image, name, date }) => {
   return (
-    <TouchableOpacity style={styles.itemContainer}>
+    <TouchableOpacity style={styles.Container_Historico}>
       <Image source={{ uri: image }} style={styles.itemImage} />
       <View style={styles.itemTextContainer}>
-        <Text style={styles.itemTitle}>{name}</Text>
-        <Text style={styles.itemSubtitle}>Última pesquisa: {date}</Text>
+        <Text style={styles.nome}>{name}</Text>
+        <Text style={styles.data}>Última pesquisa: {date}</Text>
       </View>
       <MaterialIcons name="chevron-right" size={24} color="black" />
     </TouchableOpacity>
@@ -23,6 +29,7 @@ export default function HomeScreen() {
     { id: '2', name: 'Monitor Samsung 100hz', date: '5/6/2024', image: '' },
     { id: '3', name: 'Mouse Gamer', date: '5/6/2024', image: '' }
   ];
+  const navigation = useNavigation<NavigationProps>();
 
   return (
     <View style={styles.container}>
@@ -40,7 +47,7 @@ export default function HomeScreen() {
                 style={styles.digite_aqui}
             />
             <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Procurar</Text>
+              <Text style={styles.buttonText} onPress={() => navigation.navigate('Procurar')}>Procurar</Text>
               <TextInput.Icon icon="arrow-right" size={24} color="#FFFFFF" style={styles.arrow} />
             </TouchableOpacity>
         </View>
@@ -140,19 +147,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 23,
     alignSelf: 'flex-start',
-    marginLeft: 20,
+    marginLeft: -100,
   },
   listContainer: {
     width: '100%',
-    marginTop: 10,
+    marginTop: 17,
   },
-  itemContainer: {
+  Container_Historico: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 15,
     paddingHorizontal: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#ddd'
+    borderBottomColor: '#ddd',
   },
   itemImage: {
     width: 50,
@@ -165,11 +172,11 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 15
   },
-  itemTitle: {
+  nome: {
     fontSize: 16,
     fontWeight: 'bold'
   },
-  itemSubtitle: {
+  data: {
     fontSize: 12,
     color: 'gray'
   },

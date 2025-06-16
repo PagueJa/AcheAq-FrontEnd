@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-paper';
+import { useNavigation, useRoute } from '@react-navigation/native';
+
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../navigator/types';
 
 const Footer = () => {
-  const [activeTab, setActiveTab] = useState('home');
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const route = useRoute();
 
   const tabs = [
     { key: 'search', icon: 'magnify' },
@@ -12,13 +17,36 @@ const Footer = () => {
     { key: 'notifications', icon: 'bell' },
   ];
 
+  const routeMap = {
+    home: 'Home',
+    search: 'IAconversation',
+    profile: 'Perfil',
+    notifications: 'Notificacoes',
+  } as const;
+
+  // detecta qual aba está ativa com base no nome da rota atual
+  const getActiveTab = (): keyof typeof routeMap => {
+    const currentRoute = route.name;
+    const match = Object.entries(routeMap).find(([key, value]) => value === currentRoute);
+    return match?.[0] as keyof typeof routeMap || 'home';
+  };
+
+  const handleTabPress = (tabKey: keyof typeof routeMap) => {
+    const routeName = routeMap[tabKey];
+    if (routeName) {
+      navigation.navigate(routeName);
+    }
+  };
+
+  const activeTab = getActiveTab();
+
   return (
     <View style={styles.footer}>
       {tabs.map((tab) => (
         <TouchableOpacity 
           key={tab.key} 
           style={styles.tabButton} 
-          onPress={() => setActiveTab(tab.key)}
+          onPress={() => handleTabPress(tab.key)}
         >
           <View style={[styles.iconContainer, activeTab === tab.key && styles.activeIcon]}>
             <Icon 
@@ -43,7 +71,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     position: 'absolute',
-    bottom: 0,
+    bottom: 38,
     width: '100%',
   },
   tabButton: {
@@ -57,8 +85,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   activeIcon: {
-    backgroundColor: '#0D0D26', 
+    backgroundColor: '#0D0D26',
   },
 });
 
 export default Footer;
+
